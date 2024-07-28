@@ -43,29 +43,69 @@ if submitted:
     # Basic Info
     st.markdown('<hr>', unsafe_allow_html=True)
     st.header('Basic Info')
-    
-    st.write(f'Direction = {direction}')
-    cols = st.columns(4)
-    cols[0].write('**Type**')
-    cols[1].write('**Fib Lvl**')
-    cols[2].write('**Price**')
-    cols[3].write('**Unit Ratio**')
-    
+        
     for i, label in enumerate(label_ls):
         fib_lvl = fib_lvl_ls[i]
-        unit_ratio = unit_ratio_ls[i]
-        
         
         anchor_price = swing_low if is_long else swing_high
-        
         price = calc_fib_price(anchor_price, fib_lvl, swing_range, is_long)
-        cols[0].write(label)
-        cols[1].write(fib_lvl)
-        cols[2].write(price)
-        cols[3].write(unit_ratio)
-        
         calc_price[label] = price
-        
+    
+    st.write(f'Direction = {direction}')
+    basic_table_html = f"""
+    <style>
+    table {{
+        width: 100%;
+        border-collapse: collapse;
+    }}
+    th, td {{
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }}
+    </style>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Fib Level</th>
+            <th>Price</th>
+            <th>Unit Ratio</th>
+        </tr>
+        <tr>
+            <td>{label_ls[0]}</td>
+            <td>{fib_lvl_ls[0]}</td>
+            <td>{calc_price[label_ls[0]]}</td>
+            <td>{unit_ratio_ls[0]}</td>
+        </tr>
+        <tr>
+            <td>{label_ls[1]}</td>
+            <td>{fib_lvl_ls[1]}</td>
+            <td>{calc_price[label_ls[1]]}</td>
+            <td>{unit_ratio_ls[1]}</td>
+        </tr>
+        <tr>
+            <td>{label_ls[2]}</td>
+            <td>{fib_lvl_ls[2]}</td>
+            <td>{calc_price[label_ls[2]]}</td>
+            <td>{unit_ratio_ls[2]}</td>
+        </tr>
+        <tr>
+            <td>{label_ls[3]}</td>
+            <td>{fib_lvl_ls[3]}</td>
+            <td>{calc_price[label_ls[3]]}</td>
+            <td>{unit_ratio_ls[3]}</td>
+        </tr>
+        <tr>
+            <td>{label_ls[4]}</td>
+            <td>{fib_lvl_ls[4]}</td>
+            <td>{calc_price[label_ls[4]]}</td>
+            <td>{unit_ratio_ls[4]}</td>
+        </tr>
+    </table>
+    """
+    st.markdown(basic_table_html, unsafe_allow_html=True)
+    
+    
     # Sizing
     entry_1 = calc_price['Entry 1']
     entry_2 = calc_price['Entry 2']
@@ -97,34 +137,51 @@ if submitted:
     st.header('Sizing')
     
     st.write(f'Direction = {direction}')
-    cols = st.columns(6)
-    
-    cols[0].write('**Type**')
-    cols[0].write('Entry 1')
-    cols[0].write('Entry 2')
-    cols[0].write('Entry 3')
-    
-    cols[1].write('**Avg Cost Price**')
-    cols[1].write(f'{avg_cost_price_1:,.2f}')
-    cols[1].write(f'{avg_cost_price_2:,.2f}')
-    cols[1].write(f'{avg_cost_price_3:,.2f}')
-    
-    cols[2].write('**Take Profit**')
-    cols[2].write(f'{tp_1:,.2f}')
-    cols[2].write(f'{tp_2:,.2f}')
-    cols[2].write(f'{tp_3:,.2f}')
-    
-    cols[3].write('**Expected Return (%)**')
-    cols[3].write(f'{exp_ret_1*100:.1f}%')
-    cols[3].write(f'{exp_ret_2*100:.1f}%')
-    cols[3].write(f'{exp_ret_3*100:.1f}%')
-    
-    cols[4].write('**Amount to Risk**')
-    cols[4].write(f'{amt_risk_1:,.2f}')
-    cols[4].write(f'{amt_risk_2:,.2f}')
-    cols[4].write(f'{amt_risk_3:,.2f}')
-    
-    cols[5].write('**Unit to Buy**')
-    cols[5].write(f'{unit_buy_1:,.2f}')
-    cols[5].write(f'{unit_buy_2:,.2f}')
-    cols[5].write(f'{unit_buy_3:,.2f}')
+    size_table_html = f"""
+    <style>
+    table {{
+        width: 100%;
+        border-collapse: collapse;
+    }}
+    th, td {{
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }}
+    </style>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Avg Cost Price</th>
+            <th>Take Profit</th>
+            <th>Expected Return (&#37;)</th>
+            <th>Ammount to Risk</th>
+            <th>Unit to Buy</th>
+        </tr>
+        <tr>
+            <td>Entry 1</td>
+            <td>{avg_cost_price_1:,.2f}</td>
+            <td>{tp_1:,.2f}</td>
+            <td>{exp_ret_1*100:.1f}&#37;</td>
+            <td>{amt_risk_1:,.2f}</td>
+            <td>{unit_buy_1:,.2f}</td>
+        </tr>
+        <tr>
+            <td>Entry 2</td>
+            <td>{avg_cost_price_2:,.2f}</td>
+            <td>{tp_2:,.2f}</td>
+            <td>{exp_ret_2*100:.1f}&#37;</td>
+            <td>{amt_risk_2:,.2f}</td>
+            <td>{unit_buy_2:,.2f}</td>
+        </tr>
+        <tr>
+            <td>Entry 3</td>
+            <td>{avg_cost_price_3:,.2f}</td>
+            <td>{tp_3:,.2f}</td>
+            <td>{exp_ret_3*100:.1f}&#37;</td>
+            <td>{amt_risk_3:,.2f}</td>
+            <td>{unit_buy_3:,.2f}</td>
+        </tr>
+    </table>
+    """
+    st.markdown(size_table_html, unsafe_allow_html=True)
