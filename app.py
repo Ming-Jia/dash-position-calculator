@@ -15,7 +15,7 @@ fib_lvl_ls = [1.272, 0.618, 0.382, 0.17, -0.05]
 unit_ratio_ls = [None, 1, 2, 6, None]
 calc_price = {}
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Position Sizing Calculator", layout="wide")
 st.title("Position Sizing Calculator")
 
 # User input
