@@ -1,12 +1,9 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 
 
 # Utils
-def calc_fib_price(base_price, mult, i_range, is_long=True):
-    if is_long:
+def calc_fib_price(base_price, mult, i_range, i_is_long=True):
+    if i_is_long:
         return base_price + i_range * mult
     else:
         return base_price - i_range * mult
